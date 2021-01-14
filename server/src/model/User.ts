@@ -63,14 +63,8 @@ const UserSchema: Schema = new Schema(
     { timestamps: true }
 );
 
-/*
-UserSchema.virtual('password').set(function (this: any, password: string) {
-    this.hash_password = bcrypt.hashSync(password, 10);
+UserSchema.virtual('fullname').get(function (this: any) {
+    return this.firstname + ' ' + this.lastname;
 });
-*/
-
-UserSchema.methods.validatePassword = async function (this: any, password: string) {
-    return bcrypt.compare(password, this.hash_password);
-};
 
 export default model<IUser>('User', UserSchema);
