@@ -8,7 +8,8 @@ export default(db : string) => {
     const connect = () => {
         mongoose.connect(db, {
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
+            useCreateIndex: true
         }).then(() => {
 
             return logging.info(NAMESPACE, `Succesfully connected to ${NAMESPACE}`)

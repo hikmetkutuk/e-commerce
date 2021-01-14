@@ -1,7 +1,5 @@
 import http from 'http';
 import express from 'express';
-import bodyParser from 'body-parser';
-import validator from 'express-validator';
 
 import logging from './config/logging';
 import config from './config/config';
@@ -24,8 +22,8 @@ app.use((req, res, next) => {
 });
 
 // Parse the request
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Rules of API
 app.use((req, res, next) => {
