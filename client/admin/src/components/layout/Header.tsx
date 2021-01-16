@@ -158,26 +158,6 @@ const Header: React.FC = () => {
               </div>
             </div>
           </div>
-
-          <div
-            className="content  d-flex flex-column flex-column-fluid"
-            id="kt_content"
-          >
-            <div
-              className="subheader py-2 py-lg-6  subheader-transparent "
-              id="kt_subheader"
-            >
-              <div className=" container  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                <div className="d-flex align-items-center flex-wrap mr-2">
-                  <h5 className="text-dark font-weight-bold mt-2 mb-2 mr-5">
-                    Home{" "}
-                  </h5>
-                </div>
-
-                <div className="d-flex align-items-center flex-wrap"></div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
