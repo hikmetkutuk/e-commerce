@@ -11,7 +11,6 @@ export const register = async (req: Request, res: Response): Promise<void> => {
             if (user) return res.status(400).json({ message: 'User already exist' });
 
             const body = req.body as Pick<IUser, 'firstname' | 'lastname' | 'email' | 'password'>;
-            console.log(body.lastname);
             const hash_password = bcrypt.hashSync(body.password, 10);
 
             const _user: IUser = new User({
@@ -35,11 +34,11 @@ export const login = async (req: Request, res: Response): Promise<void> => {
             if (user) {
                 const validPassword = bcrypt.compareSync(req.body.password, user.hash_password);
                 if (validPassword) {
-                    const token = jwt.sign({ _id: user._id }, config.server.secret, { expiresIn: '1h' });
+                    const token = jwt.sign({ _id: user._id, role: user.role }, config.server.secret, { expiresIn: '1h' });
 
                     const { _id, firstname, lastname, fullname, email, role } = user;
 
-                    res.status(200).json({ token, user: { _id, firstname, lastname, fullname, email, role } });
+                    return res.status(200).json({ token, user: { _id, firstname, lastname, fullname, email, role } });
                 } else {
                     return res.status(400).json({ message: 'Invalid password' });
                 }
