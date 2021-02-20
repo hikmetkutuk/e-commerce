@@ -6,7 +6,8 @@ import Category, { ICategory } from '../../model/Category';
 export const index = async (req: Request, res: Response) => {
     try {
         const categories: ICategory[] = await Category.find();
-        return res.status(200).json({ categories });
+        const categoryList = create(categories);
+        return res.status(200).json({ categoryList });
     } catch (err) {
         return res.send(err);
     }
@@ -31,3 +32,26 @@ export const store = async (req: Request, res: Response): Promise<void> => {
         res.status(500).send(err);
     }
 };
+
+
+const create = function (categories: any[], parentId: any = null): any {
+    const categoryList = [];
+    let category;
+    if (parentId == null) {
+        category = categories.filter(c => c.parentId == undefined);
+    }
+    else {
+        category = categories.filter(c => c.parentId == parentId);
+    }
+
+    for (let c of category) {
+        categoryList.push({
+            _id: c._id,
+            name: c.name,
+            slug: c.slug,
+            children: create(categories, c._id)
+        });
+    }
+
+    return categoryList;
+}
